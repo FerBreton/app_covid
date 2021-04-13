@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Obten tus resultados</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Obtener resultados</button>
+</form>
+
+{% endblock %}

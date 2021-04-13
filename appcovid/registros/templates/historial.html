@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Registros realizados</h1>
+{% for reg in registros %}
+    <u1>
+        <li>
+            {{ reg.email }} Temperatura:
+            {{ reg.temperatura }} Oxigenación:
+            {{ reg.oxigenacion }} Estado: 
+            {{ reg.estado }}
+        </li>
+    </u1>
+{% endfor %}
+
+{% endblock %}

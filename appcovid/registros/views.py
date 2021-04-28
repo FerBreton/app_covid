@@ -1,16 +1,35 @@
+import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from .forms import *
 from .models import *
-from django.contrib import messages
 import datetime
+from django.contrib import messages
 
 # Create your views here.
 
 class Home(View):
     def get(self, request):
-        return render(request, 'index.html', {})
+        cov = 'https://covidtracking.com/api/states/'
+        response = requests.get(cov)
+        x = 'https://api.covidtracking.com/v1/us/current.json'
+        response1 = requests.get(x)
+
+        estados = ['AK', 'AL', 'AR', 'AS', 'AZ']
+        datos = []
+
+        for i in response.json():
+            for j in estados:
+                if i['state'] == j:
+                    datos.append(i['positive'])
+
+        context = {
+            'response' : response.json(),
+            'US' : response1.json(),
+            'data' : datos,
+        }
+        return render(request, 'index.html', context)
 
 class Entrada(View):
     def get(self, request):
